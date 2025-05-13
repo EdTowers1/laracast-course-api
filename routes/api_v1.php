@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 
-Route::middleware('api')->prefix('v1')->group(function () {
+Route::middleware('api')->prefix('V1')->group(function () {
     // Aquí van las rutas principales de la API v1
 
     Route::middleware('auth:sanctum')->group(function () {
