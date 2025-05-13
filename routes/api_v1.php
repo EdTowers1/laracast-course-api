@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\TicketController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -8,11 +9,13 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 
-Route::middleware('api')->prefix('V1')->group(function () {
+Route::middleware('api')->prefix('v1')->group(function () {
     // Aquí van las rutas principales de la API v1
-
     Route::middleware('auth:sanctum')->group(function () {
-        Route::apiResource('tickets', TicketController::class);
-    });
 
+        Route::apiResource('tickets', TicketController::class);
+
+        Route::apiResource('users', UserController::class);
+
+    });
 });
