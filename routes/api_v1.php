@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AuthorTicketController;
 use App\Http\Controllers\Api\v1\TicketController;
-use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\AuthorController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -15,7 +16,8 @@ Route::middleware('api')->prefix('v1')->group(function () {
 
         Route::apiResource('tickets', TicketController::class);
 
-        Route::apiResource('users', UserController::class);
+        Route::apiResource('authors', AuthorController::class);
 
+        Route::apiResource(('authors.tickets'), AuthorTicketController::class);
     });
 });

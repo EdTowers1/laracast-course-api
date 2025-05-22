@@ -9,19 +9,51 @@ abstract class QueryFilter
 {
     protected $builder;
     protected $request;
+    protected $sortable = [];
 
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
 
-    protected function filter($array){
+    protected function filter($array)
+    {
         foreach ($array as $key => $value) {
             if (method_exists($this, $key)) {
                 $this->$key($value);
             }
         }
         return $this->builder;
+    }
+
+    protected function sort($value)
+    {
+        $sortAttributes = explode(',', $value);
+
+        foreach ($sortAttributes as $sortAttribute) {
+            $direction = 'asc';
+
+            if (strpos($sortAttribute, '-') === 0) {
+                $direction = 'desc';
+                $sortAttribute = substr($sortAttribute, 1);
+            }
+
+            if (
+                !in_array($sortAttribute, $this->sortable)
+                &&
+                !array_key_exists($sortAttribute, $this->sortable)
+            ) {
+                continue;
+            }
+
+            $colunmName = $this->sortable[$sortAttribute] ?? null;
+
+            if ($colunmName === null) {
+                $colunmName = $sortAttribute;
+            }
+
+            $this->builder->orderBy($colunmName, $direction);
+        }
     }
 
     public function apply(Builder $builder)
