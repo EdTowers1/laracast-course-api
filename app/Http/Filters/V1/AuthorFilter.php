@@ -4,7 +4,7 @@ namespace App\Http\Filters\V1;
 
 class AuthorFilter extends QueryFilter
 {
-        protected $sortable = [
+    protected $sortable = [
         'name',
         'email',
         'createdAt' => 'created_at',
